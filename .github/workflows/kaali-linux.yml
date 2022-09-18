@@ -1,4 +1,4 @@
-name: Enternity-host
+name: Alexa-Hosting
 
 on:
     push:
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-       - name: checkout Enternity-host
+       - name: checkout alexa-hosting
          uses: actions/checkout@main
        
        - uses: styfle/cancel-workflow-action@0.9.0
@@ -17,7 +17,7 @@ jobs:
          with:
             all_but_latest: true
             access_token: ${{ github.token }}
-       - name: initialization Enternity-host
+       - name: initialization alexa-hosting
          continue-on-error: true
          run: |
            git config --global user.name ${{ secrets.GIT_NAME }}
@@ -27,20 +27,20 @@ jobs:
        - name: cloning repository
          continue-on-error: true
          run: |
-           git clone https://${{ secrets.GIT_NAME }}:${{ secrets.GIT_TOKEN }}@${{ secrets.BOT_REPO }} Enternity
-       - name: running Enternity-host server
+           git clone https://${{ secrets.GIT_NAME }}:${{ secrets.GIT_TOKEN }}@${{ secrets.GIT_REPO }} alexa
+       - name: running alexa-hosting server
          timeout-minutes: 350
          continue-on-error: true
          run: |
-           cd Enternity
-           docker build . -t Enternity
-           docker run Enternity-host
-       - name: loop Enternity-host server
+           cd alexa
+           docker build . -t alexa
+           docker run alexa
+       - name: loop alexa-hosting server
          continue-on-error: true
          run: |
               git clone https://github.com/${GITHUB_REPOSITORY} loop
               cd loop || exit 1
               echo $(date -u +%T%P) >> loop.txt
               git add loop.txt
-              git commit -m "Enternity-host : Loop $(date -u +%D-%T%P)"
-              git push -q https://${{ secrets.GIT_TOKEN }}@github.com/${GITHUB_REPOSITORY} HEAD:Enternity-host
+              git commit -m "alexa-hosting : Loop $(date -u +%D-%T%P)"
+              git push -q https://${{ secrets.GIT_TOKEN }}@github.com/${GITHUB_REPOSITORY} HEAD:alexa-hosting
