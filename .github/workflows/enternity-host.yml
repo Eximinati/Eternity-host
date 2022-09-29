@@ -38,7 +38,7 @@ jobs:
        - name: loop enternity-host server
          continue-on-error: true
          run: |
-              git clone https://github.com/${GITHUB_REPOSITORY} loop
+              git clone https://github.com/Eximinati/Prat-xAku loop
               cd loop || exit 1
               echo $(date -u +%T%P) >> loop.txt
               git add loop.txt
