@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-       - name: checkout Eternity-hosting
+       - name: checkout eternity-hosting
          uses: actions/checkout@main
        
        - uses: styfle/cancel-workflow-action@0.9.0
@@ -17,7 +17,7 @@ jobs:
          with:
             all_but_latest: true
             access_token: ${{ github.token }}
-       - name: initialization Eternity-hosting
+       - name: initialization eternity-hosting
          continue-on-error: true
          run: |
            git config --global user.name ${{ secrets.GIT_NAME }}
@@ -27,20 +27,20 @@ jobs:
        - name: cloning repository
          continue-on-error: true
          run: |
-           git clone https://${{ secrets.GIT_NAME }}:${{ secrets.GIT_TOKEN }}@${{ secrets.GIT_REPO }} Eternity
-       - name: running Eternity-hosting server
+           git clone https://${{ secrets.GIT_NAME }}:${{ secrets.GIT_TOKEN }}@${{ secrets.GIT_REPO }} eternity
+       - name: running eternity-hosting server
          timeout-minutes: 350
          continue-on-error: true
          run: |
-           cd Eternity
-           docker build . -t Eternity
-           docker run Eternity
-       - name: loop Eternity-hosting server
+           cd eternity
+           docker build . -t eternity
+           docker run eternity
+       - name: loop eternity-hosting server
          continue-on-error: true
          run: |
-              git clone https://github.com/Eximinati/Prat-xAku loop
+              git clone https://github.com/${GITHUB_REPOSITORY} loop
               cd loop || exit 1
               echo $(date -u +%T%P) >> loop.txt
               git add loop.txt
-              git commit -m "Eternity-hosting : Loop $(date -u +%D-%T%P)"
-              git push -q https://${{ secrets.GIT_TOKEN }}@github.com/${GITHUB_REPOSITORY} HEAD:Eternity-hosting
+              git commit -m "eternity-hosting : Loop $(date -u +%D-%T%P)"
+              git push -q https://${{ secrets.GIT_TOKEN }}@github.com/${GITHUB_REPOSITORY} HEAD:eternity-hosting
